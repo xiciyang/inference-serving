@@ -1,0 +1,71 @@
+{
+  "name": "inference-serving",
+  "version": "0.1.0",
+  "description": "Deploy a model checkpoint as a reachable inference endpoint: probe environment, select backend, migrate if needed, deploy, health-check, register the endpoint, auto-degrade on failure, roll back, tear down — fully audited.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "os": [
+    "linux",
+    "darwin"
+  ],
+  "cpu": [
+    "x64",
+    "arm64"
+  ],
+  "main": "./src/index.mjs",
+  "exports": {
+    ".": {
+      "import": "./src/index.mjs"
+    },
+    "./api": {
+      "import": "./src/api.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "inference-serving": "./bin/inference-serving.mjs"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "mcp/",
+    "skills/",
+    "cordis.patch.yml",
+    "manifest.yaml",
+    "README.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "scripts": {
+    "test": "node --test \"tests/unit/*.test.mjs\" \"tests/integration/*.test.mjs\" && npm run test:contract",
+    "test:unit": "node --test \"tests/unit/*.test.mjs\"",
+    "test:integration": "node --test \"tests/integration/*.test.mjs\"",
+    "check": "node scripts/check-manifest.mjs",
+    "demo": "node scripts/e2e-demo.mjs",
+    "test:contract": "node ../inference-contracts/checks/run-all.mjs"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "*"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": {
+      "optional": true
+    }
+  },
+  "keywords": [
+    "inference",
+    "serving",
+    "vllm",
+    "deployment",
+    "dsh-plugin",
+    "mcp"
+  ]
+}

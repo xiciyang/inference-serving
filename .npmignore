@@ -1,0 +1,9 @@
+node_modules/
+*.log
+.DS_Store
+tests/
+scripts/
+docs/
+*.tgz
+.nyc_output/
+coverage/

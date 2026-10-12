@@ -1,0 +1,63 @@
+# 能力清单（安全声明）—— inference-serving
+#
+# 语义：本清单是**白名单**。未在此声明的 capability 与未在此列出的 resource 一律拒绝
+# （E_CAPABILITY_DENIED / E_RESOURCE_NOT_DECLARED，见 src/capability.mjs）。
+#
+# risk 字段取值（与 RISK_CLASSIFICATION_DRAFT.md §1 定档一致）：
+#   read   = R0 只读，无沙箱要求
+#   write  = R1/R2 写操作，需沙箱：process(R1) 或 container(R2)
+#   system = R4 系统级，需 VM 级沙箱 —— 本机无 VM 级沙箱，故一律拒绝
+#
+# sandbox 字段是本 capability **最低**要求的沙箱层级；实际执行层级由 risk 档位决定，
+# 二者取更严者。vm 档在本机恒不可用 → 声明 vm 的 capability 永远返回 E_SANDBOX_UNAVAILABLE。
+
+name: inference-serving
+version: 0.1.0
+interface:
+  mcp: "1.0.0"
+  cli: "1.0.0"
+
+capabilities:
+  - id: deploy
+    risk: write
+    sandbox: container
+    idempotent: true
+    resources: [model:read, gpu:write, port:bind, state:write, network:egress]
+  - id: status
+    risk: read
+    sandbox: none
+    idempotent: true
+    resources: [state:read]
+  - id: rollback
+    risk: write
+    sandbox: container
+    idempotent: true
+    resources: [state:write, gpu:write, port:bind]
+  - id: teardown
+    risk: write
+    sandbox: container
+    idempotent: true
+    resources: [gpu:write, port:unbind, state:write]
+  - id: list_endpoints
+    risk: read
+    sandbox: none
+    idempotent: true
+    resources: [state:read]
+  - id: migrate
+    risk: write
+    sandbox: container
+    idempotent: true
+    resources: [model:read, gpu:write, state:write]
+
+# 明确声明「本插件不提供」的系统级能力。列出而不是省略，是为了让审计与人工复核
+# 能区分「未声明所以拒绝」与「设计上不做」。
+not_provided:
+  - id: install_driver
+    risk: system
+    reason: 修改宿主驱动/内核参数属系统级变更，不在本插件职责内
+  - id: sudo_exec
+    risk: system
+    reason: 提权被显式禁止
+  - id: stop_foreign_process
+    risk: system
+    reason: 只允许操作本插件自己登记的服务进程

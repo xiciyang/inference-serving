@@ -1,0 +1,13 @@
+# Bundle patch for inference-serving.
+#
+# 重要（本机实测踩坑，见 PROJECT_CONTEXT.md §2.3）：
+#   - name 必须是 npm 包名，不能写相对路径。相对路径会以 PROFILE 目录为 baseUrl 解析，
+#     文件不存在会导致 DSH 启动失败。
+#   - inject 必须显式声明；host 组合没有 preset 式的自动注入。
+#   - 本插件只硬依赖 tools。webServer 是可选服务，由 apply() 内 ctx.get('webServer') 取用，
+#     因此不写进 inject —— 这样 headless profile 下也能正常挂载。
+- insert:
+    - id: inference-serving
+      name: 'inference-serving'
+      inject:
+        - tools
