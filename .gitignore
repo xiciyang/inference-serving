@@ -15,3 +15,5 @@ __pycache__/
 *.tmp
 .venv/
 venv/
+demo-out/
+.ai-infra/

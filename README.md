@@ -300,3 +300,20 @@ npm run demo          # 真机端到端演示（需要 Docker + NVIDIA GPU）
 ## License
 
 MIT
+
+## 兼容性
+
+| 项 | 范围 |
+|---|---|
+| Node.js | >= 20.11 |
+| DSH | `engines.dsh: ">=0.2.0 <0.3.0"`，已在 **0.2.0-rc.2** 上验证 |
+| 操作系统 | Linux / macOS（x64 / arm64）；Windows 未验证 |
+| 运行时依赖 | 零（只用 Node 内建模块与外部容器运行时） |
+| 容器后端 | Docker 或 Podman（部署真实端点时需要；单元测试不需要） |
+
+跨包契约套件（`inference-contracts`）属于本机 monorepo 的内部闸门：单独 clone 本仓库时
+`npm run test:contract` 会明确跳过，不会伪装成通过。
+
+## 许可
+
+MIT，见 [LICENSE](./LICENSE)。
