@@ -11,8 +11,8 @@
 # sandbox 字段是本 capability **最低**要求的沙箱层级；实际执行层级由 risk 档位决定，
 # 二者取更严者。vm 档在本机恒不可用 → 声明 vm 的 capability 永远返回 E_SANDBOX_UNAVAILABLE。
 
-name: inference-serving
-version: 0.1.3
+name: "@xiciyang/inference-serving"
+version: 0.1.4
 interface:
   mcp: "1.0.0"
   cli: "1.0.0"

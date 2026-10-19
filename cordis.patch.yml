@@ -8,6 +8,6 @@
 #     因此不写进 inject —— 这样 headless profile 下也能正常挂载。
 - insert:
     - id: inference-serving
-      name: 'inference-serving'
+      name: '@xiciyang/inference-serving'
       inject:
         - tools

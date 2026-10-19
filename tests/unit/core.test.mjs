@@ -67,7 +67,7 @@ test('errors: warn() 产出可序列化警告', () => {
 test('version: package.json / src/version.mjs / manifest.yaml 三处版本一致', async () => {
   const pkg = JSON.parse(readFileSync(join(PACKAGE_ROOT, 'package.json'), 'utf8'))
   assert.equal(pkg.version, PACKAGE_VERSION)
-  assert.equal(pkg.name, 'inference-serving')
+  assert.equal(pkg.name, '@xiciyang/inference-serving')
   const { parse } = await import('../../src/util/yaml.mjs')
   const manifest = parse(readFileSync(join(PACKAGE_ROOT, 'manifest.yaml'), 'utf8'))
   assert.equal(manifest.version, PACKAGE_VERSION)

@@ -44,13 +44,13 @@ still run the full test suite and read the plan from `deploy --help`.
 ## 安装
 
 ```bash
-npm install -g inference-serving          # CLI，已发布到 npm
+npm install -g @xiciyang/inference-serving          # CLI，已发布到 npm
 ```
 
 作为 **DSH 插件**（bundle，装完重启生效）：
 
 ```bash
-dsh plugin --profile <name> add inference-serving
+dsh plugin --profile <name> add @xiciyang/inference-serving
 ```
 
 

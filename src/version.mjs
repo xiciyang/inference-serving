@@ -11,7 +11,7 @@ import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 
 export const PACKAGE_NAME = 'inference-serving'
-export const PACKAGE_VERSION = '0.1.3'
+export const PACKAGE_VERSION = '0.1.4'
 
 /** MCP 工具接口语义化版本。破坏性变更升 major（题目原则 3.1.5）。 */
 export const MCP_INTERFACE_VERSION = '1.0.0'
