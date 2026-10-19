@@ -44,7 +44,7 @@ function mockCtx({ withWebServer = true, failOn = null } = {}) {
 }
 
 test('契约: 导出 name / inject / apply，且只硬依赖 tools', () => {
-  assert.equal(name, 'inference-serving')
+  assert.equal(name, '@xiciyang/inference-serving')
   assert.deepEqual(inject, ['tools'], 'webServer 必须是可选服务（否则 headless profile 挂不上）')
   assert.equal(typeof apply, 'function')
 })

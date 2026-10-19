@@ -46,7 +46,7 @@ test('yaml: 解析流式序列与映射（manifest.yaml 里人工写的风格）
 test('yaml: 真实 manifest.yaml 可解析且结构正确', async () => {
   const { readManifestText } = await import('../../src/version.mjs')
   const doc = parse(readManifestText())
-  assert.equal(doc.name, 'inference-serving')
+  assert.equal(doc.name, '@xiciyang/inference-serving')
   const ids = doc.capabilities.map((c) => c.id)
   assert.deepEqual(ids, ['deploy', 'status', 'rollback', 'teardown', 'list_endpoints', 'migrate'])
   assert.deepEqual(doc.capabilities[0].resources, ['model:read', 'gpu:write', 'port:bind', 'state:write', 'network:egress'])

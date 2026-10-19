@@ -21,7 +21,7 @@ import { getSandboxProbe } from './sandbox.mjs'
 import { createLogger } from './log.mjs'
 import { PACKAGE_VERSION, MCP_INTERFACE_VERSION } from './version.mjs'
 
-export const name = 'inference-serving'
+export const name = '@xiciyang/inference-serving'
 
 /** 只硬依赖 tools。webServer 可选。 */
 export const inject = ['tools']
