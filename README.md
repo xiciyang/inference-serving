@@ -1,5 +1,28 @@
 # inference-serving
 
+**Deploy a model checkpoint as a reachable inference endpoint — and treat failure as a first-class outcome.**
+Probe → backend select → (migrate) → deploy → three-stage health check → register → write shared state;
+on failure auto-degrade (memory quota → concurrency → precision → port), and only then roll back.
+Every step lands in a hash-chained audit log. Zero runtime dependencies (Node built-ins only).
+
+- **One command**: `inference-serving deploy /data/models/Qwen2.5-1.5B-Instruct`
+- **Idempotent**: same model + same config returns the same endpoint
+- **Reversible**: `rollback` to the last verified version; `teardown` proves no process, VRAM or port is left
+- **Auditable**: `~/.ai-infra/logs/audit/`, hash-chained — tampering is detectable
+
+**Not a fit if** you want a managed cloud endpoint, or you only need `vllm serve` for a demo — this is the
+operational layer around it (degrade, rollback, audit, reconcile), not a replacement for vLLM.
+
+### 60-second check, no GPU
+
+```bash
+npm test                  # 154 tests pass on this machine (unit + integration + contract, ~5s)
+inference-serving doctor  # environment probe only, read-only
+```
+
+A real `deploy` needs a GPU and a confirmation token (risk class R2); without one you can
+still run the full test suite and read the plan from `deploy --help`.
+
 把模型 checkpoint 部署成**可访问的推理端点**，并把失败当作一等公民处理：
 
 ```
