@@ -44,12 +44,11 @@ still run the full test suite and read the plan from `deploy --help`.
 ## 安装
 
 ```bash
-# npm（若 registry 可达）
-npm install -g inference-serving
+npm install -g inference-serving          # CLI，已发布到 npm
+```
 
-# 本机推荐：tarball 通道（不依赖公共 registry）
-npm pack                       # 产出 inference-serving-0.1.0.tgz
-npm install -g ./inference-serving-0.1.0.tgz
+```bash
+dsh plugin --profile <name> add inference-serving   # 作为 DSH 插件（bundle）
 ```
 
 作为 **DSH 插件**（bundle）：
