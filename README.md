@@ -47,16 +47,13 @@ still run the full test suite and read the plan from `deploy --help`.
 npm install -g inference-serving          # CLI，已发布到 npm
 ```
 
-```bash
-dsh plugin --profile <name> add inference-serving   # 作为 DSH 插件（bundle）
-```
-
-作为 **DSH 插件**（bundle）：
+作为 **DSH 插件**（bundle，装完重启生效）：
 
 ```bash
-dsh plugin --profile web add /path/to/inference-serving-0.1.0.tgz
-# 重启 DSH 后生效；也可用 dsh-super-injector 运行时热注入
+dsh plugin --profile <name> add inference-serving
 ```
+
+
 
 运行时要求：**Node ≥ 20.11**，Linux/macOS，x64/arm64。
 
