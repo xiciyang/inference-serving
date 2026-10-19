@@ -23,7 +23,9 @@ async function ready() {
   return { sb, containerSandbox: probe.container.available }
 }
 
-const apiOptions = (sb) => ({ ...sb.options, healthTimeoutMs: 20_000, healthPollIntervalMs: 150 })
+// headless:false 让闸门走交互分支（E_CONFIRMATION_REQUIRED）；CI 无 TTY，不显式声明会拿到
+// E_HEADLESS_NEEDS_CONFIRMATION，测试随环境漂移。
+const apiOptions = (sb) => ({ ...sb.options, headless: false, healthTimeoutMs: 20_000, healthPollIntervalMs: 150 })
 const input = (sb, extra = {}) => ({ model: sb.modelPath, backend: 'fake-http', ...extra })
 
 test('闸门: 首次 deploy 需确认 —— 返回 confirmToken，且此时**什么都没做**', async (t) => {
