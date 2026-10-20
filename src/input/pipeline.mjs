@@ -68,7 +68,7 @@ export function normalizeInput(raw) {
 export function validateCandidates(candidates) {
   if (candidates.length === 0) {
     fail(ERROR_CODES.E_INPUT_MISSING, '没有提供任何模型输入', {
-      remediation: '请提供下列任一种：本地路径（/data/models/xxx）、模型 ID（org/name 或目录名）、URL（hf-mirror.com / modelscope.cn）、环境变量（env:VAR）、已注册端点名，或用一句话描述（会列出候选）。',
+      remediation: '请提供下列任一种：本地路径（/path/to/models/<model>）、模型 ID（org/name 或目录名）、URL（hf-mirror.com / modelscope.cn）、环境变量（env:VAR）、已注册端点名，或用一句话描述（会列出候选）。',
       details: { accepted: ['path', 'model', 'url', 'env:VAR', 'registryName', 'fuzzyDescription'] },
     })
   }

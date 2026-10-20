@@ -33,7 +33,7 @@ description: 当需要把模型 checkpoint 跨平台或跨格式迁移到目标�
 ### 1. 探测（只读）
 
 ```bash
-inference-serving migrate /data/models/<model>
+inference-serving migrate <MODELS_DIR>/<model>
 ```
 
 产出 `migration-plan@1`：源格式、目标要求、步骤、磁盘估算、风险清单。
@@ -43,7 +43,7 @@ inference-serving migrate /data/models/<model>
 
 ```bash
 df -h /data
-du -sh /data/models/<model>
+du -sh <MODELS_DIR>/<model>
 ```
 
 ### 2. 转换（容器内，R2 沙箱）
@@ -53,13 +53,13 @@ du -sh /data/models/<model>
 
 ```bash
 docker run --rm --runtime nvidia --gpus all \
-  -v /data/models/<model>:/data/models/<model>:ro \
-  -v /data/models/<model>-converted:/data/models/<model>-converted \
+  -v <MODELS_DIR>/<model>:<MODELS_DIR>/<model>:ro \
+  -v <MODELS_DIR>/<model>-converted:<MODELS_DIR>/<model>-converted \
   vllm/vllm-openai:nightly \
-  python3 -m <converter> --input /data/models/<model> --output /data/models/<model>-converted
+  python3 -m <converter> --input <MODELS_DIR>/<model> --output <MODELS_DIR>/<model>-converted
 ```
 
-**挂载必须是同路径**（`:ro` 与目标路径字面一致）。本机实测：把宿主 `/data/models` 挂到
+**挂载必须是同路径**（`:ro` 与目标路径字面一致）。实测：把宿主 `<MODELS_DIR>` 挂到
 容器另一个路径会让指向绝对路径的软链在容器内断掉，vLLM 报
 `Repo id must be in the form 'repo_name'`。`inference-serving` 的部署路径已内置这条约束。
 
@@ -75,7 +75,7 @@ docker run --rm --runtime nvidia --gpus all \
 把产出目录作为新模型走正常部署：
 
 ```bash
-inference-serving deploy /data/models/<model>-converted
+inference-serving deploy <MODELS_DIR>/<model>-converted
 ```
 
 部署成功后它会在 `~/.ai-infra/state/serving-registry.yaml` 里成为独立端点，

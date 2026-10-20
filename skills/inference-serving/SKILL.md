@@ -11,7 +11,7 @@ description: 当需要把模型 checkpoint 部署成可访问的推理端点、�
 
 ```bash
 inference-serving doctor                                  # 环境自检（只读）
-inference-serving deploy /data/models/Qwen2.5-1.5B-Instruct
+inference-serving deploy /path/to/models/<model>
 inference-serving list                                    # 看端点
 ```
 
@@ -46,7 +46,7 @@ inference-serving list                                    # 看端点
 
 | 形态 | 例子 |
 |---|---|
-| 本地路径 | `/data/models/Qwen2.5-1.5B-Instruct` |
+| 本地路径 | `/path/to/models/<model>` |
 | 模型 ID | `org/name` 或目录名 `Qwen2.5` |
 | URL | `https://hf-mirror.com/<org>/<repo>`（`huggingface.co` 在本机不可达，会被拒绝并提示换镜像） |
 | 环境变量 | `env:MY_MODEL` |

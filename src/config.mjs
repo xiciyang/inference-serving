@@ -61,7 +61,7 @@ export function defaultOptions() {
     maxDegradeSteps: 4,
 
     // 模型
-    modelRoots: ['/data/models'],
+    modelRoots: (process.env.DSH_MODEL_ROOTS || '/data/models').split(':').filter(Boolean),
     containerModelMount: 'identical',
 
     // 后端

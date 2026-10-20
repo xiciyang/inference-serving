@@ -23,7 +23,8 @@ const argv = process.argv.slice(2)
 const getArg = (k, d) => { const i = argv.indexOf(k); return i >= 0 ? argv[i + 1] : d }
 const has = (k) => argv.includes(k)
 
-const MODEL = getArg('--model', '/data/models/Qwen2.5-1.5B-Instruct')
+const MODEL = getArg('--model', process.env.DSH_DEMO_MODEL || '')
+if (!MODEL) { console.error('缺少 --model：请给出本地模型路径，例如 --model /path/to/models/<model>'); process.exit(2) }
 const QUICK = has('--quick')
 const OUT = resolve(getArg('--out', join(process.cwd(), 'demo-out')))
 const PORT = Number(getArg('--port', '8120'))

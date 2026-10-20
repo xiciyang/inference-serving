@@ -5,7 +5,7 @@ Probe → backend select → (migrate) → deploy → three-stage health check �
 on failure auto-degrade (memory quota → concurrency → precision → port), and only then roll back.
 Every step lands in a hash-chained audit log. Zero runtime dependencies (Node built-ins only).
 
-- **One command**: `inference-serving deploy /data/models/Qwen2.5-1.5B-Instruct`
+- **One command**: `inference-serving deploy /path/to/models/<model>`
 - **Idempotent**: same model + same config returns the same endpoint
 - **Reversible**: `rollback` to the last verified version; `teardown` proves no process, VRAM or port is left
 - **Auditable**: `~/.ai-infra/logs/audit/`, hash-chained — tampering is detectable
@@ -32,7 +32,7 @@ still run the full test suite and read the plan from `deploy --help`.
      → 全程哈希链审计
 ```
 
-- **一条命令**：`inference-serving deploy /data/models/Qwen2.5-1.5B-Instruct`
+- **一条命令**：`inference-serving deploy /path/to/models/<model>`
 - **幂等**：同一模型 + 同一配置重复调用返回同一端点，不重复创建
 - **可回退**：`rollback` 回到上一个已验证版本
 - **可清理**：`teardown` 后验证无残留进程、无残留显存、端口已释放
@@ -63,7 +63,7 @@ dsh plugin --profile <name> add @xiciyang/inference-serving
 
 ```bash
 inference-serving doctor                                   # 环境自检（只读）
-inference-serving deploy /data/models/Qwen2.5-1.5B-Instruct
+inference-serving deploy /path/to/models/<model>
 inference-serving status                                   # 含实机核对
 inference-serving list
 inference-serving teardown <endpoint-id> --confirm <token>
@@ -166,7 +166,7 @@ node mcp/server.mjs --http --port 8790   # streamable-http，POST /mcp
         root: '~/.ai-infra'
         portPoolStart: 8100
         portPoolEnd: 8199
-        modelRoots: ['/data/models']
+        modelRoots: ['/path/to/models']   // 或用环境变量 DSH_MODEL_ROOTS（冒号分隔）
         maxDegradeSteps: 4
         headless: false
 ```

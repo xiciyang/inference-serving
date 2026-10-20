@@ -331,7 +331,7 @@ function printHelp(stream = process.stdout) {
   stream.write(`  --deep                    深度探测（doctor/status/deploy）\n`)
   stream.write(`\n${C.bold('示例')}\n`)
   stream.write(`  inference-serving doctor\n`)
-  stream.write(`  inference-serving deploy /data/models/Qwen2.5-1.5B-Instruct\n`)
+  stream.write(`  inference-serving deploy /path/to/models/<model>\n`)
   stream.write(`  inference-serving deploy Qwen2.5 --gpu-memory-utilization 0.9   # 触发降级链演示\n`)
   stream.write(`  inference-serving list --json\n`)
   stream.write(`  inference-serving teardown <endpoint-id> --confirm <token>\n`)

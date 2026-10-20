@@ -39,7 +39,7 @@ export const TOOL_SPECS = [
       type: 'object',
       additionalProperties: false,
       properties: {
-        model: { type: 'string', description: '模型。支持：本地路径（/data/models/xxx）、模型 ID（org/name 或目录名）、URL（hf-mirror.com / modelscope.cn）、环境变量（env:VAR）、已注册端点名、或一句话模糊描述（会列出候选让你选）。' },
+        model: { type: 'string', description: '模型。支持：本地路径（/path/to/models/<model>）、模型 ID（org/name 或目录名）、URL（hf-mirror.com / modelscope.cn）、环境变量（env:VAR）、已注册端点名、或一句话模糊描述（会列出候选让你选）。' },
         path: { type: 'string', description: '显式指定本地模型目录（与 model 二选一）。' },
         url: { type: 'string', description: '显式指定模型下载地址（仅支持 hf-mirror.com / modelscope.cn；huggingface.co 在本机不可达会被拒绝）。' },
         backend: { type: 'string', description: '后端 id，默认取环境探测推荐值（本机为 nvidia-vllm）。' },

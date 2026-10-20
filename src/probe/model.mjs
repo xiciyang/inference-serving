@@ -4,8 +4,8 @@
  * 覆盖验收标准 5.2.1 的六种形态：本地路径 / 模型 ID / URL / 注册名 / 环境变量 / 模糊描述。
  *
  * 本机实测得到的两条关键约束（PROJECT_CONTEXT.md §4.4）：
- *  1. 宿主 `/models` 是空目录，模型真实位置是 `/data/models`，容器内才映射成 `/models`。
- *  2. `Qwen2.5-1.5B-Instruct` 是**软链**；若容器把 `/data/models` 挂到别的路径，
+ *  1. 模型根目录由 `modelRoots` 配置（或 `DSH_MODEL_ROOTS`）决定；容器内挂载路径需与宿主一致。
+ *  2. 模型目录可能是**软链**；若容器把模型根目录挂到别的路径，
  *     链会断（实测报 `Repo id must be in the form 'repo_name'`）。因此本模块解析软链
  *     得到真实路径，并要求后端使用**同路径挂载**。
  */
@@ -246,7 +246,7 @@ export async function resolveModelRef(runtime, ref) {
         facts: extractModelFacts(check.config),
         license: { ...classifyLicense(lic.license, policy), source: lic.source, provenance: lic.provenance ?? null },
         // display 用**用户给的那个名字**（软链名），不是解出来的真实目录名。
-        // 否则 `/data/models/Qwen2.5-1.5B-Instruct` 会变成 served-model-name "master"
+        // 否则 `/path/to/models/<model>` 会变成 served-model-name "master"
         // （真实路径是 .../snapshots/master），既难看又没信息量。
         display: basename(p),
         warnings,

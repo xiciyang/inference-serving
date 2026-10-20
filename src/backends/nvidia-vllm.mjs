@@ -6,8 +6,8 @@
  * 本机实测得到的三条硬约束（PROJECT_CONTEXT.md §4.2/§4.4，全部有命令证据）：
  *  1. `--runtime nvidia --gpus all` 可用（nvidia-container-toolkit 1.17.8 + Docker 29.1.3）。
  *     vLLM 0.23.1rc1 容器实测 85 秒就绪，`/v1/models` 返回 200，前向可用。
- *  2. **挂载必须是"同路径"**：宿主 `/data/models` 挂到容器 `/data/models`。
- *     若挂到 `/models`，宿主侧指向 `/data/models/...` 的软链会在容器内断掉，
+ *  2. **挂载必须是"同路径"**：宿主模型根目录挂到容器内同一路径。
+ *     若挂到别处，宿主侧的软链会在容器内断掉，
  *     vLLM 报 `Repo id must be in the form 'repo_name'`（实测踩过）。
  *  3. 统一内存机型上 `nvidia-smi` 不报显存；内存判据走宿主 MemAvailable 估算。
  */
