@@ -12,7 +12,7 @@
 # 二者取更严者。vm 档在本机恒不可用 → 声明 vm 的 capability 永远返回 E_SANDBOX_UNAVAILABLE。
 
 name: "@xiciyang/inference-serving"
-version: 0.1.6
+version: 0.1.7
 interface:
   mcp: "1.0.0"
   cli: "1.0.0"
