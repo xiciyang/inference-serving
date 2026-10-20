@@ -1,6 +1,6 @@
 {
   "name": "@xiciyang/inference-serving",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Deploy a model checkpoint as a reachable inference endpoint: probe environment, select backend, migrate if needed, deploy, health-check, register the endpoint, auto-degrade on failure, roll back, tear down — fully audited.",
   "type": "module",
   "license": "MIT",
